@@ -18,7 +18,8 @@ def get_samples(char, sfx):
     if char.isupper():
         char += 'c'
     for name in os.listdir(join_path(sfx, char)):
-        yield join_path(sfx, char, name)
+        if name.endswith(".png"):
+            yield join_path(sfx, char, name)
 
 
 def load_samples(sfx):
