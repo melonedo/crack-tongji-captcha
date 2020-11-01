@@ -10,9 +10,9 @@ class CrackQuery(BaseModel):
 
 @app.post('/crack')
 def crack_handler(query: CrackQuery):
-    ans = crack(read_base64(query.data_url))
-    print(ans)
     try:
+        ans = crack(read_base64(query.data_url))
+        print(ans)
         return {"success": True, "ans": ans}
     except CharacterTooComplicated:
         return {"success": False}
