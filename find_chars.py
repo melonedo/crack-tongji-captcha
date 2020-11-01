@@ -46,11 +46,13 @@ def get_angle(rrect):
     "Get the nearest angle to make the rectangle up-right."
     return rrect.angle if rrect.angle > -45 else 90 + rrect.angle
 
+def findContours(image):
+    "Work around the difference between opencv 3 and opencv 4."
+    return cv2.findContours(image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)[-2]
 
 def find_chars(image):
     "Find the characters in image, return them as rotated rectangles."
-    contours, _ = cv2.findContours(
-        image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    contours = findContours(image)
     # print(contours)
     rrects = [RotatedRect(*cv2.minAreaRect(c)) for c in contours]
     if len(contours) != 4:  # i and j
