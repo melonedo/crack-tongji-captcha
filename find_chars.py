@@ -73,7 +73,7 @@ def find_chars(image):
                     rrects[di].center[0] - rrects[i].center[0],
                     rrects[di].center[1] - rrects[i].center[1])
             nearest = min(body_indices, key=get_distance)
-            print(nearest)
+            # print(nearest)
             joined_contour = numpy.concatenate(
                 (contours[di], contours[nearest]))
             rrects[nearest] = RotatedRect(*cv2.minAreaRect(joined_contour))
