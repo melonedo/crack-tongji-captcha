@@ -1,12 +1,14 @@
 import requests
-from find_chars import read_base64, isolate_chars
+from find_chars import read_base64, isolate_chars, concat_chars
 from match_samples import load_samples, match_best
+import cv2
 
 
 sample_set = load_samples("samples")
 
 def crack(image):
     chars = isolate_chars(image)
+    cv2.imwrite("concat.png", concat_chars(chars))
     code = ""
     for char in chars:
         best = match_best(char, sample_set)

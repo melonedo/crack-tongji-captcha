@@ -50,7 +50,11 @@ def compare_image(l: numpy.ndarray, r: numpy.ndarray):
 
 
 def match_best(image, sample_set):
-    return min(sample_set, key=lambda s: compare_image(image, s.image))
+    res = min(sample_set, key=lambda s: compare_image(image, s.image))
+    # print(compare_image(image, res.image))
+    # print(image.shape, res.image.shape)
+    cv2.imwrite("image.png", image)
+    return res
 
 
 if __name__ == "__main__":

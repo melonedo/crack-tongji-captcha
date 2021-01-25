@@ -44,7 +44,7 @@ def draw_rotated_rect(image, rrect):
 
 def get_angle(rrect):
     "Get the nearest angle to make the rectangle up-right."
-    return rrect.angle if rrect.angle > -45 else 90 + rrect.angle
+    return rrect.angle if rrect.angle < 45 else -90 + rrect.angle
 
 def findContours(image):
     "Work around the difference between opencv 3 and opencv 4."
@@ -85,7 +85,7 @@ def crop_rrect(image, rrect, margin):
     "Crop a rotated rectangle from image."
     mat = cv2.getRotationMatrix2D(rrect.center, get_angle(rrect), 1)
     size = int(rrect.size[0]+margin*2), int(rrect.size[1]+margin*2)
-    if rrect.angle <= -45:
+    if get_angle(rrect) <= 0:
         size = size[1], size[0]
     for i in (0, 1):
         mat[i, 2] += size[i] / 2 - rrect.center[i]
